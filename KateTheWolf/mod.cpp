@@ -46,8 +46,8 @@ void AmyJiggleHook(NJS_OBJECT* obj)
 		NJS_VECTOR a3{};
 		if (jiggledata[dword_1A51A9C->base.PlayerNum])
 		{
-			njCalcVector(_nj_current_matrix_ptr_, &a3, &a3, 0);
-			njCalcVector(flt_1A51A00, &jiggledata[dword_1A51A9C->base.PlayerNum]->TorsoNodePos, &a3, 0);
+			njCalcPoint(_nj_current_matrix_ptr_, &a3, &a3, 0);
+			njCalcPoint(flt_1A51A00, &jiggledata[dword_1A51A9C->base.PlayerNum]->TorsoNodePos, &a3, 0);
 		}
 	}
 }
@@ -166,6 +166,10 @@ extern "C"
 		WriteData<19>((void*)0x72420B, 0x90u);
 		WriteData<11>((void*)0x724229, 0x90u);
 		WriteData<3>((void*)0x724238, 0x90u);
+		// fix chao vertex limit
+		int mallocExpand = (int)malloc(1500 * sizeof(NJS_VECTOR));
+		WriteData((int*)0x0056F8E0, mallocExpand);
+		WriteData((int*)0x0056F932, mallocExpand + 8);
 	}
 
 	__declspec(dllexport) ModInfo SA2ModInfo = { ModLoaderVer };
